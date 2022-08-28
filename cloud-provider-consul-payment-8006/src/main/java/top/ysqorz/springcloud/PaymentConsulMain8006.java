@@ -2,16 +2,16 @@ package top.ysqorz.springcloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author passerbyYSQ
- * @create 2022-08-23 21:53
+ * @create 2022-08-28 18:37
  */
 @SpringBootApplication
-@EnableEurekaServer
-public class EurekaMain7002 {
+@EnableDiscoveryClient
+public class PaymentConsulMain8006 {
     public static void main(String[] args) {
-        SpringApplication.run(EurekaMain7002.class, args);
+        SpringApplication.run(PaymentConsulMain8006.class, args);
     }
 }

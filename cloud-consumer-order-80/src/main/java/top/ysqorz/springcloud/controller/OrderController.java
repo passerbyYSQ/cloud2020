@@ -3,11 +3,8 @@ package top.ysqorz.springcloud.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import top.ysqorz.springcloud.entities.CommonResult;
 import top.ysqorz.springcloud.entities.Payment;
-
-import javax.annotation.Resource;
 
 /**
  * @author passerbyYSQ
@@ -16,18 +13,19 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/consumer/payment")
 @Slf4j
-public class OrderController {
+public class OrderController extends BaseController {
     public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE/payment";
-    @Resource
-    private RestTemplate restTemplate;
 
     @PostMapping("/create")
     public CommonResult<Payment> create(@RequestBody Payment payment) {
-        return restTemplate.postForObject(PAYMENT_URL + "/create", payment, CommonResult.class);
+        // return restTemplate.postForObject(PAYMENT_URL + "/create", payment, CommonResult.class);
+        return this.post(PAYMENT_URL + "/create", payment, Payment.class);
     }
 
     @GetMapping("/{id}")
     public CommonResult<Payment> getById(@PathVariable Long id) {
-        return restTemplate.getForObject(PAYMENT_URL + "/" + id, CommonResult.class);
+        // return restTemplate.getForObject(PAYMENT_URL + "/" + id, CommonResult.class);
+        return this.get(PAYMENT_URL + "/" + id, null, Payment.class);
     }
+
 }
