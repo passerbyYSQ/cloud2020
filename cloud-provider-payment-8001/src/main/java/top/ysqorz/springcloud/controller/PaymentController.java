@@ -2,17 +2,17 @@ package top.ysqorz.springcloud.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
-import top.ysqorz.springcloud.service.PaymentService;
 import top.ysqorz.springcloud.entities.CommonResult;
 import top.ysqorz.springcloud.entities.Payment;
+import top.ysqorz.springcloud.service.PaymentService;
 
 import javax.annotation.Resource;
-import java.util.*;
-import java.util.function.Function;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +30,11 @@ public class PaymentController {
     @Resource
     private DiscoveryClient discoveryClient;
 
+    @GetMapping("/lb")
+    public CommonResult<String> getPaymentLB() {
+        return CommonResult.success("Payment: " + serverPort);
+    }
+
     @GetMapping("/discovery")
     public Object discovery() {
         List<String> services = discoveryClient.getServices();
@@ -40,7 +45,7 @@ public class PaymentController {
             serviceInfo.put("instances", instances);
             return serviceInfo;
         }).collect(Collectors.toList());
-        return new CommonResult<>(200, "OK", serviceInfoList);
+        return CommonResult.success(serviceInfoList);
     }
 
     @PostMapping("/create")

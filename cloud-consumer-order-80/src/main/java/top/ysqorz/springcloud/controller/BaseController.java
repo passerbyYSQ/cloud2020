@@ -9,6 +9,7 @@ import top.ysqorz.springcloud.entities.CommonResult;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 
 /**
  * @author passerbyYSQ
@@ -29,7 +30,7 @@ public class BaseController {
     }
 
     public <T> CommonResult<T> post(String url, Class<T> clazz) {
-        return post(url, new Object(), clazz);
+        return post(url, new HashMap<>(), clazz);
     }
 
     public <T> CommonResult<T> get(String url, Object param, Class<T> clazz) {
@@ -37,6 +38,6 @@ public class BaseController {
     }
 
     public <T> CommonResult<T> get(String url, Class<T> clazz) {
-        return get(url, new Object(), clazz);
+        return get(url, new HashMap<>(), clazz);
     }
 }

@@ -19,4 +19,8 @@ public class CommonResult<T> {
     public CommonResult(Integer code, String msg) {
         this(code, msg, null);
     }
+
+    public static <T> CommonResult<T> success(T data) {
+        return new CommonResult<>(200, "OK", data);
+    }
 }

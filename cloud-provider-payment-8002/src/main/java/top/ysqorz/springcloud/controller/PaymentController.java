@@ -30,6 +30,10 @@ public class PaymentController {
     @Resource
     private DiscoveryClient discoveryClient;
 
+    @GetMapping("/lb")
+    public CommonResult<String> getPaymentLB() {
+        return CommonResult.success("Payment: " + serverPort);
+    }
     @GetMapping("/discovery")
     public Object discovery() {
         List<String> services = discoveryClient.getServices();
@@ -40,7 +44,7 @@ public class PaymentController {
             serviceInfo.put("instances", instances);
             return serviceInfo;
         }).collect(Collectors.toList());
-        return new CommonResult<>(200, "OK", serviceInfoList);
+        return CommonResult.success(serviceInfoList);
     }
 
     @PostMapping("/create")
