@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -35,8 +36,18 @@ public class PaymentController {
         return CommonResult.success("Payment: " + serverPort);
     }
 
+    @GetMapping("/feign/timeout")
+    public CommonResult<String> paymentFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return CommonResult.success("Payment: " + serverPort);
+    }
+
     @GetMapping("/discovery")
-    public Object discovery() {
+    public CommonResult<List<Map<String, Object>>> discovery() {
         List<String> services = discoveryClient.getServices();
         List<Map<String, Object>> serviceInfoList = services.stream().map(service -> {
             List<ServiceInstance> instances = discoveryClient.getInstances(service);
